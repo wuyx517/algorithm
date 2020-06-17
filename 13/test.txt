@@ -1,0 +1,9 @@
+
+abc
+ abc
+source target
+abcdabcdefg bcd
+abbbbbcdabcdefg bcd
+a a
+abcde e
+bbcabcdababcdabcdabde abcdabd
