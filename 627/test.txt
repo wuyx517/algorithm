@@ -1,4 +1,5 @@
 
-abccccdd    7
-AbccccDd    5
-
+abccccdd 7
+AbccccDd 5
+Abcccccdd 7
+aaaa 4
