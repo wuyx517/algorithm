@@ -71,6 +71,10 @@ def find_kmp(source, target):
 
     return num
 
+'''
+后续补充 Boyer–Moore 算法
+'''
+
 if __name__ == '__main__':
     line_list = open('test.txt', 'r').readlines()
     for line in line_list:

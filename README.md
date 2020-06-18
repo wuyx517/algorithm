@@ -43,3 +43,23 @@
 样例解释: 如果source里包含target的内容，返回target在source里第一次出现的位置
 挑战
 O(n2)的算法是可以接受的。如果你能用O(n)的算法做出来那更加好。（提示：KMP）
+
+## 415
+### 有效回文
+#### 描述
+给定一个字符串，判断其是否为一个回文串。只考虑字母和数字，忽略大小写。
+
+样例
+样例 1:
+
+    输入: "A man, a plan, a canal: Panama"
+    输出: true
+    解释: "amanaplanacanalpanama"
+样例 2:
+
+    输入: "race a car"
+    输出: false
+    解释: "raceacar"
+挑战
+    
+    O(n) 时间复杂度，且不占用额外空间
