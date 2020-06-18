@@ -29,6 +29,9 @@ def find_1(source, target):
     return num
 
 def find_kmp(source, target):
+    '''
+    886ms
+    '''
     if target == '':
         return 0
     if source == '':
@@ -48,40 +51,38 @@ def find_kmp(source, target):
     source_index = 0
     end_line = 1
     num = -1
-    while source_index < len(source) - len(target) and end_line == 1:
+    while source_index <= len(source) - len(target) and end_line == 1:
         if source[source_index] != target[0]:
             source_index += 1
             continue
         match_num = 1
         num_list_num = 0
+        end_line = 0
         for i in range(len(target))[1:]:
-            end_line = 0
             if source[source_index + i] != target[i]:
                 match_num = i
                 num_list_num = num_list[i - 1]
                 end_line = 1
                 break
+        if end_line == 0:
+            num = source_index
         jump_num = match_num - num_list_num
         source_index += jump_num
-    if end_line == 0:
-        num = source_index
+
     return num
 
 if __name__ == '__main__':
     line_list = open('test.txt', 'r').readlines()
-    # for line in line_list:
-    #     line_sp = line.split(' ')
-    #     if len(line_sp) == 2:
-    #         source = line_sp[0].strip()
-    #         target = line_sp[1].strip()
-    #     else:
-    #         source = ''
-    #         target = ''
-    #     #num = find_1(source, target)
-    #     #print(num)
-    #     find_kmp(source, target)
-    # a = [1, 3, 4]
-    # print(a[:2])
+    for line in line_list:
+        line_sp = line.split(' ')
+        if len(line_sp) == 2:
+            source = line_sp[0].strip()
+            target = line_sp[1].strip()
+        else:
+            source = ''
+            target = ''
+        num = find_1(source, target)
+        #print(num)
+        num_1 = find_1(source, target)
+        print(num, '--', num_1)
 
-    num = find_kmp('bbcabcdababcdabcdabde', 'abcdabd')
-    print(num)
