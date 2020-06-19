@@ -32,44 +32,47 @@ def find_kmp(source, target):
     '''
     886ms
     '''
-    if target == '':
-        return 0
-    if source == '':
-        return -1
-    if len(source) < len(target):
-        return -1
-    num_list = [0]
-    for i in range(len(target))[1:]:
-        tmp_target = target[:i+1]
-        #print(tmp_target)
-        tmp_num = 0
-        for j in range(len(tmp_target)):
-            if tmp_target[:j+1] == tmp_target[-j-1:] and j != (len(tmp_target) -1):
-                tmp_num = j + 1
-        num_list.append(tmp_num)
-
-    source_index = 0
-    end_line = 1
-    num = -1
-    while source_index <= len(source) - len(target) and end_line == 1:
-        if source[source_index] != target[0]:
-            source_index += 1
-            continue
-        match_num = 1
-        num_list_num = 0
-        end_line = 0
+    try:
+        if target == '':
+            return 0
+        if len(source) == 0:
+            return -1
+        if len(source) < len(target):
+            return -1
+        num_list = [0]
         for i in range(len(target))[1:]:
-            if source[source_index + i] != target[i]:
-                match_num = i
-                num_list_num = num_list[i - 1]
-                end_line = 1
-                break
-        if end_line == 0:
-            num = source_index
-        jump_num = match_num - num_list_num
-        source_index += jump_num
+            tmp_target = target[:i+1]
+            #print(tmp_target)
+            tmp_num = 0
+            for j in range(len(tmp_target)):
+                if tmp_target[:j+1] == tmp_target[-j-1:] and j != (len(tmp_target) -1):
+                    tmp_num = j + 1
+            num_list.append(tmp_num)
 
-    return num
+        source_index = 0
+        end_line = 1
+        num = -1
+        while source_index <= len(source) - len(target) and end_line == 1:
+            if source[source_index] != target[0]:
+                source_index += 1
+                continue
+            match_num = 1
+            num_list_num = 0
+            end_line = 0
+            for i in range(len(target))[1:]:
+                if source[source_index + i] != target[i]:
+                    match_num = i
+                    num_list_num = num_list[i - 1]
+                    end_line = 1
+                    break
+            if end_line == 0:
+                num = source_index
+            jump_num = match_num - num_list_num
+            source_index += jump_num
+
+        return num
+    except:
+        return -1
 
 '''
 后续补充 Boyer–Moore 算法
