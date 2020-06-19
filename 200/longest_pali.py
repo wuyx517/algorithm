@@ -68,6 +68,7 @@ def longestPalindrome(s):
 def Manacher(s):
     '''
     时间复杂度为O(n)
+    这个是别人的算法 不过好像没有更新 最大边界，不知是不是我的理解有误
     '''
     if not s:
         return ''
@@ -105,6 +106,59 @@ def Manacher(s):
     start = (mid - 1) // 2 - (longest - 1) // 2
     return s[start:start + longest]
 
+def manache_slef(s):
+    if s is None:
+        return ''
+    if len(s) == 1:
+        return s
+
+    #采用manache的形式
+    new_list = ['$']
+    for i_s in s:
+        new_list.append('#')
+        new_list.append(i_s)
+    new_list.append('#')
+    new_list.append('\0')
+
+    len_list = len(new_list)
+    p_list = [0] * len_list
+
+    max_len = 0
+    max_mid = 0
+    max_x = 0
+    max_i = 1
+    for new_i in range(len_list)[1:-1]:
+        #判断当前点是否大于最大边界点
+        if new_i < max_x:
+            tmp_j = 2*max_i - new_i
+            #判断该点的加上最大的已知边长是否大于最大边界
+            if max_x - new_i >= p_list[tmp_j]:
+                # 如果不是则将对称点的值赋予此点
+                p_list[new_i] = p_list[tmp_j]
+                continue
+
+            else:
+                # 如果大于 只需判断大于边长的部分即可
+                pali_r = max_x - new_i + 1
+        else:
+            pali_r = 1
+
+        while new_list[new_i + pali_r] == new_list[new_i - pali_r]:
+            pali_r += 1
+
+        tmp_x = new_i + pali_r - 1
+        if max_x < tmp_x:
+            max_i = new_i
+            max_x = tmp_x
+
+        if max_len < pali_r:
+            max_len = pali_r
+            max_mid = new_i
+
+        p_list[new_i] = pali_r
+
+    result = ''.join(new_list[max_mid - max_len + 1:max_mid + max_len - 1]).replace('#', '')
+    return result
 
 if __name__ == '__main__':
     line_list = open('test.txt', 'r').readlines()
@@ -112,7 +166,7 @@ if __name__ == '__main__':
         line_sp = line.replace('\n', '').split('---')
         s = line_sp[0]
         answer = line_sp[1]
-        result = longest_pali(s)
+        result = manache_slef(s)
         print(result, '--', answer)
 
 
